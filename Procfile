@@ -1,0 +1,1 @@
+web: gunicorn digilocker15.wsgi:application --log-file -
