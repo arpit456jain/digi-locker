@@ -25,7 +25,7 @@
     {% for i in notes %}
     <div class="note">
       <div class="note-info">
-        <a class="note-title" href="/note/{{i.id}}">{{i.subject|title}}</a>
+        <a class="note-title" href="{{i.notesfile.url}}">{{i.subject|title}}</a>
         <div class="note-u-profile" {% if i.profile %} style="background-image: url({{i.profile.url}})" {% endif %} {% if self %} style="background-image: url({% if i.status == "Pending" %}{% static 'images/icon-pending.svg' %}{% elif i.status == "Accepted" %}{% static 'images/icon-approved.svg' %}{% else %}{% static 'images/icon-cross-red.svg' %}{% endif %})" ; {% endif %}></div>
         <div class="note-meta">{{i.uploadingdate}} by <a href="mailto:{{i.user.username}}">{{i.user.username}}</a></div>
        
@@ -36,6 +36,10 @@
           
         </div>
         
+      </div>
+      <div class="action">
+              
+        <p>{{i.description}}</p>        
       </div>
     </div>
     {% endfor %}

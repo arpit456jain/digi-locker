@@ -26,18 +26,21 @@ def signup1(request):
         lname = request.POST['lname']
         email = request.POST['email']
         password = request.POST['password']
+        cpassword = request.POST['cpassword']
         contact = request.POST['contact']
-        role = request.POST['role']
-        dept = request.POST['dept']
+        if cpassword!=password:
+            messages.info(request, "Password not matched")
+            return redirect('signup')
         try:
             user = User.objects.create_user(username=email, password=password, first_name=fname, last_name=lname)
-            user.is_active = False
             user.save()
-            signup = Signup.objects.create(user=user, contact=contact, branch=dept, role=role)
+            signup = Signup.objects.create(user=user, contact=contact)
             signup.save()
+            messages.success(request, "Sign Up Successfully")
+            return redirect('/login')
             
         except IntegrityError:
-            messages.info(request, "Username taken, Try different")
+            messages.info(request, "Email Already exists, Try different")
             return render(request, "signup.html")
     if request.user.is_authenticated:
         return redirect('index')
@@ -57,7 +60,7 @@ def userlogin(request):
     
     if request.method == 'POST':
         print("jfj")
-        username = request.POST['username']
+        username = request.POST['email']
         password = request.POST['password']
         print(username,password)
         exist = User.objects.filter(username=username).exists()
@@ -129,11 +132,8 @@ def upload_notes(request):
             messages.error(request, f'Something went wrong, Try Again')
 
     return render(request, 'upload_notes.html', {'auth': request.user.is_authenticated})
-def view_users(request):
-    pass
 
-def all_notes(request):
-    pass
+
 
 def view_usernotes(request, type):
     if not request.user.is_authenticated:
@@ -153,10 +153,7 @@ def view_usernotes(request, type):
     d = {'notes': notes, 'self': True, 'reviewed': reviewed, 'l_rev': l_rev, 'l_pen': l_pen }
     return render(request, 'viewall_usernotes.html', d)
 
-def viewall_usernotes(request):
-    notes = Notes.objects.filter(status="Accepted")
-    d = {'notes': notes, 'viewall': True, 'reviewed': True}
-    return render(request, 'viewall_usernotes.html', d)
+
 
 def edit_profile(request):
     if not request.user.is_authenticated:
@@ -176,13 +173,4 @@ def edit_profile(request):
     d = {'data': data, 'user': user, 'auth': request.user.is_authenticated}
     return render(request, 'edit_profile.html', d)
 
-def view_note(request, id):
-    if not request.user.is_authenticated:
-        return redirect('login')
-    try:
-        note = Notes.objects.get(id=id)
-        
-        d = {'note': note}
-        return render(request, "view_note.html", d)
-    except:
-        return HttpResponse("Resource you're looking for is not available now")
+

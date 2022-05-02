@@ -20,40 +20,17 @@
         </div>
         <div class="profile-main">
           <h1 class="user-name">{{data.user.first_name}} {{data.user.last_name}}</h1>
-          <p class="user-email">{{data.user.username}}</p>
+        
         </div>
       </div>
       <div class="profile-data">
         <div class="field">
-          <div class="field-name">Branch</div>
+          <div class="field-name">Email</div>
           <div class="field-value">
-            {% if data.branch == "1" %}
-            Computer Science and Engg.
-            {% elif data.branch == "2" %}
-            Electrical Engg.
-            {% elif data.branch == "3" %}
-            Electronics and Communication Engg.
-            {% else %}
-            Other Department
-            {% endif %}
+            <p class="user-email">{{data.user.username}}</p>
           </div>
         </div>
-        <div class="field">
-          <div class="field-name">Role</div>
-          <div class="field-value">
-            {% if data.role == "1" %}
-            Student
-            {% else %}
-            Staff
-            {% endif %}
-            {% if admin %}
-            (Super User)
-            {% endif %}
-            {% if staff %}
-            (Admin)
-            {% endif %}
-          </div>
-        </div>
+        
         <div class="field">
           <div class="field-name">Contact</div>
           <div class="field-value">{{data.contact}}</div>

@@ -19,7 +19,6 @@ urlpatterns = [
 
     path('upload_notes/',views.upload_notes,name="upload_notes"),
     path('view_usernotes/<str:type>',views.view_usernotes,name="view_usernotes"),
-    path('viewall_usernotes/',views.viewall_usernotes,name="viewall_usernotes"),
-    path('note/<int:id>', views.view_note, name="view_note"),
+  
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
