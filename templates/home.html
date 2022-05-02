@@ -29,7 +29,7 @@
       <div class="feature">
         {% svg "icon-essence" %}
         <h3>Essence</h3>
-        <p>Share N Learn is a Common Platform for Students &amp; Faculties to upload and share files including study material which will be accessible to all the registered members.</p>
+        <p>Digilocker is a Common Platform for all to upload files </p>
       </div>
       <div class="feature">
         {% svg "icon-goal" %}
@@ -72,16 +72,12 @@
         </div>
        
         <div class="form-footer">
-          <button type="button" class="button lg" id="contact-form-btn">Message</button>
+          <button type="submit" class="button lg" id="contact-form-btn">Message</button>
         </div>
       </form>
     </div>
   </div>
 </main>
-<script>
-  const t = "{{ csrf_token }}";
-  const c = "{% url 'contact' %}";
-  
-</script>
+
 {% include "footer1.html" %}
 {% endblock content %}

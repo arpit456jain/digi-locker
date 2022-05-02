@@ -18,8 +18,7 @@ def index(request):
 def about(request):
     return redirect('/#about')
 
-def contact(request):
-    return "contact"
+
 
 def signup1(request):
     if request.method == 'POST':
@@ -88,6 +87,8 @@ def contact(request):
         print(name, email,subject,message)
         ins = Contact(name=name,email=email,subject=subject,message=message)
         ins.save()
+        messages.success(request,"thanks for contacting us")
+        return redirect("/")
     
     return redirect("/#contact")
 
