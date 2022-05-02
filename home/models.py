@@ -19,3 +19,18 @@ class OTPModel(models.Model):
 
     class Meta:
         verbose_name = 'OTP'
+
+class Contact(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.CharField(max_length=50)
+    subject = models.CharField(max_length=50)
+    message = models.CharField(max_length=200)
+
+class Notes(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    uploadingdate = models.CharField(max_length=30)
+    subject = models.CharField(max_length=50)
+    notesfile = models.FileField(null=True)
+    filetype = models.CharField(max_length=50)
+    description = models.CharField(max_length=200)
+    status = models.CharField(max_length=15)

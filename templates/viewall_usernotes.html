@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+{% load svg %}
+{% block content %}
+{% include "header.html" %}
+<main>
+  <div class="notes">
+    
+    <div class="notes-header">
+      
+      <div class="filters">
+        <div class="clear-filters">
+          <div class="clear-icon">{% svg "icon-cross" %}</div>
+          Clear current search queries
+        </div>
+       
+        
+      
+      </div>
+    </div>
+    <p class="emsg">No results matched your search.</p>
+    {% if notes|length == 0  %}
+    <p class="msg">There're nothing here</p>
+    {% endif %}
+    {% for i in notes %}
+    <div class="note">
+      <div class="note-info">
+        <a class="note-title" href="/note/{{i.id}}">{{i.subject|title}}</a>
+        <div class="note-u-profile" {% if i.profile %} style="background-image: url({{i.profile.url}})" {% endif %} {% if self %} style="background-image: url({% if i.status == "Pending" %}{% static 'images/icon-pending.svg' %}{% elif i.status == "Accepted" %}{% static 'images/icon-approved.svg' %}{% else %}{% static 'images/icon-cross-red.svg' %}{% endif %})" ; {% endif %}></div>
+        <div class="note-meta">{{i.uploadingdate}} by <a href="mailto:{{i.user.username}}">{{i.user.username}}</a></div>
+       
+      </div>
+      <div class="action">
+              <a href="{{i.notesfile.url}}" class="note-type">{{i.filetype|upper}}</a>
+        <div class="note-reaction nr ">
+          
+        </div>
+        
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</main>
+<script>
+  
+</script>
+{% include "footer1.html" %}
+{% endblock content %}
